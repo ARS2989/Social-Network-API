@@ -1,0 +1,97 @@
+fetch('/api/thoughts')
+  .then(response => response.json())
+  .then(data => {
+    console.log('All thoughts:', data);
+  })
+  .catch(error => {
+    console.error('Error fetching thoughts:', error);
+  });
+
+  const thoughtId = 'thought_id_here';
+fetch(`/api/thoughts/${thoughtId}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log('Single thought:', data);
+  })
+  .catch(error => {
+    console.error('Error fetching single thought:', error);
+  });
+
+  const newThoughtData = {
+    text: 'Your thought text here',
+    // ...other thought properties
+  };
+  
+  fetch('/api/thoughts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newThoughtData),
+  })
+    .then(response => response.json())
+    .then(createdThought => {
+      console.log('New thought created:', createdThought);
+  
+      // Update user's thoughts array with the created thought's _id
+      const userId = 'user_id_here';
+      const updateUserUrl = `/api/users/${userId}/add-thought/${createdThought._id}`;
+  
+      fetch(updateUserUrl, {
+        method: 'POST',
+      })
+        .then(response => response.json())
+        .then(updatedUser => {
+          console.log('User updated with new thought:', updatedUser);
+        })
+        .catch(error => {
+          console.error('Error updating user with new thought:', error);
+        });
+    })
+    .catch(error => {
+      console.error('Error creating new thought:', error);
+    });
+  //Remember to replace placeholders like 'thought_id_here' and 'user_id_here' with the actual IDs as needed. Handle these requests on the server side by routing them to appropriate controller methods for fetching, creating, and updating data.
+  
+  
+  const thoughtId = 'thought_id_here';
+const createReactionUrl = `/api/thoughts/${thoughtId}/reactions`;
+
+const newReactionData = {
+  emoji: '❤️', // Replace with the desired emoji
+  // ...other reaction properties
+};
+
+fetch(createReactionUrl, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(newReactionData),
+})
+  .then(response => response.json())
+  .then(createdReaction => {
+    console.log('New reaction created:', createdReaction);
+  })
+  .catch(error => {
+    console.error('Error creating new reaction:', error);
+  });
+
+  const thoughtId = 'thought_id_here';
+const reactionId = 'reaction_id_here';
+const removeReactionUrl = `/api/thoughts/${thoughtId}/reactions/${reactionId}`;
+
+fetch(removeReactionUrl, {
+  method: 'DELETE',
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log('Reaction removed:', data);
+  })
+  .catch(error => {
+    console.error('Error removing reaction:', error);
+  });
+
+  
+  
+  

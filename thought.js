@@ -39,3 +39,27 @@ Thought.init({
 
 // Define association to User
 Thought.belongsTo(User);
+
+const thoughtId = 'thought_id_here';
+const createReactionUrl = `/api/thoughts/${thoughtId}/reactions`;
+
+const newReactionData = {
+  emoji: '❤️', // Replace with the desired emoji
+  timestamp: new Date(), // Generate current timestamp
+  // ...other reaction properties
+};
+
+fetch(createReactionUrl, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(newReactionData),
+})
+  .then(response => response.json())
+  .then(createdReaction => {
+    console.log('New reaction created with timestamp:', createdReaction);
+  })
+  .catch(error => {
+    console.error('Error creating new reaction:', error);
+  });

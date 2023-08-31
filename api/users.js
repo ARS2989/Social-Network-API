@@ -61,3 +61,36 @@ fetch(updateUserUrl, {
   .catch(error => {
     console.error('Error updating user:', error);
   });
+
+  const userId = 'user_id_here';
+const friendId = 'friend_id_here';
+const addFriendUrl = `/api/users/${userId}/friends/${friendId}`;
+
+fetch(addFriendUrl, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log('Friend added:', data);
+  })
+  .catch(error => {
+    console.error('Error adding friend:', error);
+  });
+
+  const userId = 'user_id_here';
+const friendId = 'friend_id_here';
+const removeFriendUrl = `/api/users/${userId}/friends/${friendId}`;
+
+fetch(removeFriendUrl, {
+  method: 'DELETE',
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log('Friend removed:', data);
+  })
+  .catch(error => {
+    console.error('Error removing friend:', error);
+  });
